@@ -1,25 +1,29 @@
 class Asteroid {
   float x, y, z;
-  float zSpeed;
-  
-  Asteroid(float tempX, float tempY, float tempZ) {
-    x = tempX;
-    y = tempY;
-    z = tempZ;
-    zSpeed = random(2, 7);
+  float speed;
+  boolean alive;
+  int size;
+ 
+  Asteroid() {
+    x = random(-width, width);
+    y = random(-height, height);
+    z = -5000 + random(0, 300);
+    speed = random(5, 30);
+    alive = true;
+    size = Math.round(random(50, 150));
   }
   
   void update() {
-    z += zSpeed;
+    z += speed;
+    if(z >= 0) alive = false;
   }
   
   void display() {
     pushMatrix();
     translate(width/2 + x, height/2 + y, z);
-    stroke(255);
-    noFill();
-    box(100);
+    fill(200);
+    noStroke();
+    sphere(size);
     popMatrix();
   }
-  
 }
