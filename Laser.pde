@@ -10,7 +10,7 @@ class Laser {
     velocity = new PVector(direction.x, direction.y, direction.z);
     speed = 40;
     velocity.setMag(speed);
-    size = 100;
+    size = 50;
     alive = true;
   }
   
