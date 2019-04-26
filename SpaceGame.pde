@@ -9,7 +9,7 @@ Laser[] lasers;
 int totalLasers;
 int LEAP = 0;
 int MOUSE = 1;
-int mode = MOUSE;
+int mode = LEAP;
 
 void setup() {
   size(1000, 600, P3D);
@@ -40,6 +40,9 @@ void draw() {
     return;
   }
   lights();
+  
+  // Collision Detection
+  collisionDetection();
   
   // Leap
   if(mode == LEAP) leapLogic();
