@@ -27,7 +27,7 @@ class Ship {
       lasers[totalLasers] = new Laser(position, facingDirection);
       totalLasers++;
     }
-    shooting = true;
+    if(mode == LEAP || mousePressed) shooting = true;
   }
   
   void display() {
