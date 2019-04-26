@@ -9,9 +9,17 @@ Laser[] lasers;
 int totalLasers;
 int LEAP = 0;
 int MOUSE = 1;
-int mode = LEAP;
+int mode = MOUSE;
+int backgroundImageX = 4992;
+int backgroundImageY = 3648;
+float backgroundZ = 2500; // but negative
+float imgScale = 0.0005*backgroundZ;
+PImage backgroundimg;
 
 void setup() {
+  imageMode(CENTER);
+  backgroundimg = loadImage("Images/realimage.jpg");
+  //image dimensions: 4992x3648
   size(1000, 600, P3D);
   leap = new LeapMotion(this);
   textSize(36);
@@ -29,6 +37,10 @@ void setup() {
 void draw() {
   // Pause Menu
   background(0);
+  pushMatrix();
+  translate(0, 0, -backgroundZ);
+  image(backgroundimg, cameraPos.x, cameraPos.y, backgroundImageX*imgScale, backgroundImageY*imgScale);
+  popMatrix();
   if(leap.getHands().size() == 0 && mode == LEAP) {
     pushMatrix();
     translate(width/2, height/2, 0);
@@ -40,16 +52,16 @@ void draw() {
     return;
   }
   lights();
-  
+
   // Collision Detection
   collisionDetection();
-  
+
   // Leap
   if(mode == LEAP) leapLogic();
-  
+
   // Camera
   moveCamera();
-  
+
   // Asteroids
   for(int i = 0; i < totalAsteroids; i++) {
     asteroids[i].update();
@@ -58,11 +70,11 @@ void draw() {
       asteroids[i] = new Asteroid();
     }
   }
-  
+
   // Ship
   ship.update();
   ship.display();
-  
+
   // Lasers
   int aliveLasers = 0;
   Laser[] newLasers = new Laser[100];
@@ -90,11 +102,11 @@ void leapLogic() {
         if(finger.getType() == 0) {
           ship.shooting = false;
         }
-        // Index 
+        // Index
         else if(finger.getType() == 1) {
           PVector fingerDirection = finger.getDirection();
           ship.facingDirection = new PVector(fingerDirection.x, fingerDirection.y, fingerDirection.z);
-          
+
           pushMatrix();
           PVector add = fingerDirection.copy();
           add.setMag(500);
@@ -105,7 +117,7 @@ void leapLogic() {
           noFill();
           sphere(20);
           popMatrix();
-          
+
           pushMatrix();
           fill(255);
           translate(width/2, height/2, -100);
