@@ -10,8 +10,16 @@ int totalLasers;
 int LEAP = 0;
 int MOUSE = 1;
 int mode = MOUSE;
+int backgroundImageX = 4992;
+int backgroundImageY = 3648;
+float backgroundZ = 2500; // but negative
+float imgScale = 0.0005*backgroundZ;
+PImage backgroundimg;
 
 void setup() {
+  imageMode(CENTER);
+  backgroundimg = loadImage("Images/realimage.jpg");
+  //image dimensions: 4992x3648
   size(1000, 600, P3D);
   leap = new LeapMotion(this);
   textSize(36);
@@ -29,6 +37,10 @@ void setup() {
 void draw() {
   // Pause Menu
   background(0);
+  pushMatrix();
+  translate(0, 0, -backgroundZ);
+  image(backgroundimg, cameraPos.x, cameraPos.y, backgroundImageX*imgScale, backgroundImageY*imgScale);
+  popMatrix();
   if(leap.getHands().size() == 0 && mode == LEAP) {
     pushMatrix();
     translate(width/2, height/2, 0);
