@@ -1,0 +1,9 @@
+TODO:
+
+-background of space
+-make ship wireframe
+-fix Pause menu
+-make asteroids explode because of lasers
+-laser sound effects
+-make ship hitbox a sphere around it
+-make background image static and use perspective with camera
