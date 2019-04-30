@@ -9,7 +9,7 @@ Laser[] lasers;
 int totalLasers;
 int LEAP = 0;
 int MOUSE = 1;
-int mode = LEAP;
+int mode = MOUSE;
 int backgroundImageX = 4992;
 int backgroundImageY = 3648;
 float backgroundZ = 2500; // but negative
@@ -24,7 +24,7 @@ void setup() {
   leap = new LeapMotion(this);
   textSize(36);
   cameraPos = new PVector(width/2, height/2);
-  totalAsteroids = 20;
+  totalAsteroids = 60;
   asteroids = new Asteroid[totalAsteroids];
   for(int i = 0; i < totalAsteroids; i++) {
     asteroids[i] = new Asteroid();
@@ -115,6 +115,7 @@ void leapLogic() {
           PVector fingerDirection = finger.getDirection();
           ship.facingDirection = new PVector(fingerDirection.x, fingerDirection.y, fingerDirection.z);
 
+          // show crosshair
           pushMatrix();
           PVector add = fingerDirection.copy();
           add.setMag(500);
@@ -125,12 +126,6 @@ void leapLogic() {
           noFill();
           sphere(20);
           popMatrix();
-
-          pushMatrix();
-          fill(255);
-          translate(width/2, height/2, -100);
-          text("X: " + nf(fingerDirection.x, 0, 1) + " Y: " + nf(fingerDirection.y, 0, 1) + " Z: " + nf(fingerDirection.z, 0, 1), 100, 100);
-          popMatrix();
         }
       }
     }
@@ -139,7 +134,8 @@ void leapLogic() {
 
 void moveCamera() {
   if(mode == MOUSE) {
-    cameraPos = new PVector(mouseX, mouseY);
+    cameraPos = new PVector(2*mouseX, 2*mouseY);
   }
+  println("cameraPos: " + cameraPos.x + " " + cameraPos.y);
   camera(cameraPos.x, cameraPos.y, (height/2) / tan(PI/6), cameraPos.x, cameraPos.y, 0, 0, 1, 0);
 }

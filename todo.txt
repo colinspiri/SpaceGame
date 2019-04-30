@@ -1,8 +1,12 @@
 TODO:
 
--make ship wireframe
--add leap roll, pitch, yaw
+Current Commit:
 -fix camera movement - instead of moving to mouseX, move camera normally and move ship inside shrunken down screen box
+-give asteroids random velocity directions (but still with positive z)
+
+Later:
+-make laser timer so you can't machine-gun fire
+-make facingDirection be a vector from ship.position to the nose of the ship so yaw, pitch, roll changes it, not the finger
 -fix Pause menu
 -make asteroids explode because of lasers
 -laser sound effects

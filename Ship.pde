@@ -22,12 +22,10 @@ class Ship {
   }
   
   void update() {
-    position.x += (cameraPos.x - position.x) * speed;
-    position.y += (cameraPos.y - position.y) * speed;
-    pushMatrix();
-    translate(width/2, height/2, -500);
-    fill(255);
-    popMatrix();
+    position = new PVector(cameraPos.x - width, cameraPos.y - height);
+    position.mult(1.1);
+    position.add(new PVector(width, height));
+    println("position: " + position.x + " " + position.y);
     if(shooting && totalLasers < lasers.length) {
       lasers[totalLasers] = new Laser(position, facingDirection);
       totalLasers++;

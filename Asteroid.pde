@@ -1,21 +1,24 @@
 class Asteroid {
   PVector position;
-  float speed;
+  PVector velocity;
   boolean alive;
   int size;
  
   Asteroid() {
-    float x = random(-width, width);
-    float y = random(-height, height);
+    float x = random(-2*width, 2*width);
+    float y = random(-2*height, 2*height);
     float z = -5000 + random(0, 300);
     position = new PVector(x, y, z);
-    speed = random(5, 30);
+    int xSpeedMax = 4;
+    int ySpeedMax = 4;
+    float zSpeed = random(5, 30);
+    velocity = new PVector(random(-xSpeedMax, xSpeedMax), random(-ySpeedMax, ySpeedMax), zSpeed);
     alive = true;
     size = Math.round(random(50, 150));
   }
   
   void update() {
-    position.z += speed;
+    position.add(velocity);
     if(position.z >= 400) alive = false;
   }
   
