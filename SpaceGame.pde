@@ -9,7 +9,7 @@ Laser[] lasers;
 int totalLasers;
 int LEAP = 0;
 int MOUSE = 1;
-int mode = MOUSE;
+int mode = LEAP;
 int backgroundImageX = 4992;
 int backgroundImageY = 3648;
 float backgroundZ = 2500; // but negative
@@ -73,8 +73,6 @@ void draw() {
   }
 
   // Ship
-  ship.yaw += 1;
-  ship.roll += 0.5;
   ship.update();
   ship.display();
 
@@ -98,8 +96,15 @@ void draw() {
 void leapLogic() {
   for(Hand hand : leap.getHands()) {
     if(hand.isRight()) {
-      PVector handPosition = hand.getPosition();
+      // hand position
+      PVector handPosition = hand.getStabilizedPosition();
       cameraPos = new PVector(handPosition.x, handPosition.y);
+      
+      // hand roll, pitch, yaw
+      ship.roll = hand.getRoll();
+      ship.pitch = -hand.getPitch();
+      ship.yaw = -hand.getYaw();
+
       for(Finger finger : hand.getOutstretchedFingers()) {
         // Thumb
         if(finger.getType() == 0) {
