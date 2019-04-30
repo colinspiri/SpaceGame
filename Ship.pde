@@ -4,6 +4,8 @@ class Ship {
   int size;
   float speed;
   boolean shooting;
+  PShape shape;
+  float yaw, pitch, roll;
   
   Ship() {
     float x = width/2;
@@ -11,8 +13,12 @@ class Ship {
     float z = 200;
     position = new PVector(x, y, z);
     facingDirection = new PVector(0, 0, -1);
-    size = 30;
+    size = 50;
     speed = 0.4;
+    shape = getShipShape();
+    yaw = 0;
+    pitch = 0;
+    roll = 0;
   }
   
   void update() {
@@ -21,21 +27,24 @@ class Ship {
     pushMatrix();
     translate(width/2, height/2, -500);
     fill(255);
-    //text("shipX: " + nf(position.x, 0, 1) + " shipY: " + nf(position.y, 0, 1), 0, 0);
     popMatrix();
     if(shooting && totalLasers < lasers.length) {
       lasers[totalLasers] = new Laser(position, facingDirection);
       totalLasers++;
     }
+    shooting = false;
     if(mode == LEAP || mousePressed) shooting = true;
   }
   
   void display() {
     pushMatrix();
     translate(position.x, position.y, position.z);
-    fill(255);
-    noStroke();
-    box(size);
+    rotateX(PI*pitch/180);
+    rotateY(PI*yaw/180);
+    rotateZ(PI*roll/180);
+    shape.setStroke(color(0, 255, 0));
+    shape.setFill(color(255));
+    shape(shape, 0, 0);
     popMatrix();
   }
 }

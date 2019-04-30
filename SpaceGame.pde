@@ -35,12 +35,9 @@ void setup() {
 }
 
 void draw() {
-  // Pause Menu
   background(0);
-  pushMatrix();
-  translate(0, 0, -backgroundZ);
-  image(backgroundimg, cameraPos.x, cameraPos.y, backgroundImageX*imgScale, backgroundImageY*imgScale);
-  popMatrix();
+  
+  // PAUSE MENU
   if(leap.getHands().size() == 0 && mode == LEAP) {
     pushMatrix();
     translate(width/2, height/2, 0);
@@ -51,6 +48,10 @@ void draw() {
     popMatrix();
     return;
   }
+  pushMatrix();
+  translate(0, 0, -backgroundZ);
+  image(backgroundimg, cameraPos.x, cameraPos.y, backgroundImageX*imgScale, backgroundImageY*imgScale);
+  popMatrix();
   lights();
 
   // Collision Detection
@@ -72,6 +73,8 @@ void draw() {
   }
 
   // Ship
+  ship.yaw += 1;
+  ship.roll += 0.5;
   ship.update();
   ship.display();
 
