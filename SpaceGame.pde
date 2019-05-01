@@ -9,7 +9,7 @@ Laser[] lasers;
 int totalLasers;
 int LEAP = 0;
 int MOUSE = 1;
-int mode = MOUSE;
+int mode = LEAP;
 int backgroundImageX = 4992;
 int backgroundImageY = 3648;
 float backgroundZ = 2500; // but negative
@@ -24,7 +24,7 @@ void setup() {
   leap = new LeapMotion(this);
   textSize(36);
   cameraPos = new PVector(width/2, height/2);
-  totalAsteroids = 60;
+  totalAsteroids = 10;
   asteroids = new Asteroid[totalAsteroids];
   for(int i = 0; i < totalAsteroids; i++) {
     asteroids[i] = new Asteroid();
@@ -98,7 +98,7 @@ void leapLogic() {
     if(hand.isRight()) {
       // hand position
       PVector handPosition = hand.getStabilizedPosition();
-      cameraPos = new PVector(handPosition.x, handPosition.y);
+      cameraPos = new PVector(2*handPosition.x, 2*handPosition.y);
       
       // hand roll, pitch, yaw
       ship.roll = hand.getRoll();
@@ -136,6 +136,6 @@ void moveCamera() {
   if(mode == MOUSE) {
     cameraPos = new PVector(2*mouseX, 2*mouseY);
   }
-  println("cameraPos: " + cameraPos.x + " " + cameraPos.y);
+  //println("cameraPos: " + cameraPos.x + " " + cameraPos.y);
   camera(cameraPos.x, cameraPos.y, (height/2) / tan(PI/6), cameraPos.x, cameraPos.y, 0, 0, 1, 0);
 }

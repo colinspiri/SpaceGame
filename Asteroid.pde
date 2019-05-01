@@ -10,9 +10,11 @@ class Asteroid {
     float z = -5000 + random(0, 300);
     position = new PVector(x, y, z);
     int xSpeedMax = 4;
+    float xSpeed = random(-xSpeedMax, xSpeedMax);
     int ySpeedMax = 4;
+    float ySpeed = random(-ySpeedMax, ySpeedMax);
     float zSpeed = random(5, 30);
-    velocity = new PVector(random(-xSpeedMax, xSpeedMax), random(-ySpeedMax, ySpeedMax), zSpeed);
+    velocity = new PVector(xSpeed, ySpeed, zSpeed);
     alive = true;
     size = Math.round(random(50, 150));
   }

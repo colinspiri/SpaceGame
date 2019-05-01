@@ -13,7 +13,7 @@ class Ship {
     float z = 200;
     position = new PVector(x, y, z);
     facingDirection = new PVector(0, 0, -1);
-    size = 50;
+    size = 30;
     speed = 0.4;
     shape = getShipShape();
     yaw = 0;
@@ -25,7 +25,7 @@ class Ship {
     position = new PVector(cameraPos.x - width, cameraPos.y - height);
     position.mult(1.1);
     position.add(new PVector(width, height));
-    println("position: " + position.x + " " + position.y);
+    //println("position: " + position.x + " " + position.y);
     if(shooting && totalLasers < lasers.length) {
       lasers[totalLasers] = new Laser(position, facingDirection);
       totalLasers++;
