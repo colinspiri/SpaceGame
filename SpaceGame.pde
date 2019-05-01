@@ -10,10 +10,10 @@ int totalLasers;
 int LEAP = 0;
 int MOUSE = 1;
 int mode = LEAP;
-int backgroundImageX = 4992;
+int backgroundImageX = 5000;
 int backgroundImageY = 3648;
-float backgroundZ = 2500; // but negative
-float imgScale = 0.0005*backgroundZ;
+float backgroundZ = 4676; // but negative
+float imgScale = 0.00062*backgroundZ;
 PImage backgroundimg;
 
 void setup() {
@@ -24,7 +24,7 @@ void setup() {
   leap = new LeapMotion(this);
   textSize(36);
   cameraPos = new PVector(width/2, height/2);
-  totalAsteroids = 10;
+  totalAsteroids = 20;
   asteroids = new Asteroid[totalAsteroids];
   for(int i = 0; i < totalAsteroids; i++) {
     asteroids[i] = new Asteroid();
@@ -35,9 +35,12 @@ void setup() {
 }
 
 void draw() {
+  // Pause Menu
   background(0);
-  
-  // PAUSE MENU
+  pushMatrix();
+  translate(0, 0, -backgroundZ);
+  image(backgroundimg, width/2, height/2, backgroundImageX*imgScale, backgroundImageY*imgScale);
+  popMatrix();
   if(leap.getHands().size() == 0 && mode == LEAP) {
     pushMatrix();
     translate(width/2, height/2, 0);
@@ -48,14 +51,7 @@ void draw() {
     popMatrix();
     return;
   }
-  pushMatrix();
-  translate(0, 0, -backgroundZ);
-  image(backgroundimg, cameraPos.x, cameraPos.y, backgroundImageX*imgScale, backgroundImageY*imgScale);
-  popMatrix();
   lights();
-
-  // Collision Detection
-  collisionDetection();
 
   // Leap
   if(mode == LEAP) leapLogic();
@@ -96,15 +92,8 @@ void draw() {
 void leapLogic() {
   for(Hand hand : leap.getHands()) {
     if(hand.isRight()) {
-      // hand position
-      PVector handPosition = hand.getStabilizedPosition();
-      cameraPos = new PVector(2*handPosition.x, 2*handPosition.y);
-      
-      // hand roll, pitch, yaw
-      ship.roll = hand.getRoll();
-      ship.pitch = -hand.getPitch();
-      ship.yaw = -hand.getYaw();
-
+      PVector handPosition = hand.getPosition();
+      cameraPos = new PVector(handPosition.x, handPosition.y);
       for(Finger finger : hand.getOutstretchedFingers()) {
         // Thumb
         if(finger.getType() == 0) {
@@ -115,7 +104,6 @@ void leapLogic() {
           PVector fingerDirection = finger.getDirection();
           ship.facingDirection = new PVector(fingerDirection.x, fingerDirection.y, fingerDirection.z);
 
-          // show crosshair
           pushMatrix();
           PVector add = fingerDirection.copy();
           add.setMag(500);
@@ -126,6 +114,12 @@ void leapLogic() {
           noFill();
           sphere(20);
           popMatrix();
+
+          pushMatrix();
+          fill(255);
+          translate(width/2, height/2, -100);
+          text("X: " + nf(fingerDirection.x, 0, 1) + " Y: " + nf(fingerDirection.y, 0, 1) + " Z: " + nf(fingerDirection.z, 0, 1), 100, 100);
+          popMatrix();
         }
       }
     }
@@ -134,8 +128,7 @@ void leapLogic() {
 
 void moveCamera() {
   if(mode == MOUSE) {
-    cameraPos = new PVector(2*mouseX, 2*mouseY);
+    cameraPos = new PVector(mouseX, mouseY);
   }
-  //println("cameraPos: " + cameraPos.x + " " + cameraPos.y);
   camera(cameraPos.x, cameraPos.y, (height/2) / tan(PI/6), cameraPos.x, cameraPos.y, 0, 0, 1, 0);
 }
