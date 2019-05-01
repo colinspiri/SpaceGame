@@ -9,11 +9,11 @@ Laser[] lasers;
 int totalLasers;
 int LEAP = 0;
 int MOUSE = 1;
-int mode = MOUSE;
-int backgroundImageX = 4992;
+int mode = LEAP;
+int backgroundImageX = 5000;
 int backgroundImageY = 3648;
-float backgroundZ = 2500; // but negative
-float imgScale = 0.0005*backgroundZ;
+float backgroundZ = 4676; // but negative
+float imgScale = 0.00062*backgroundZ;
 PImage backgroundimg;
 
 void setup() {
@@ -39,7 +39,7 @@ void draw() {
   background(0);
   pushMatrix();
   translate(0, 0, -backgroundZ);
-  image(backgroundimg, cameraPos.x, cameraPos.y, backgroundImageX*imgScale, backgroundImageY*imgScale);
+  image(backgroundimg, width/2, height/2, backgroundImageX*imgScale, backgroundImageY*imgScale);
   popMatrix();
   if(leap.getHands().size() == 0 && mode == LEAP) {
     pushMatrix();
