@@ -9,7 +9,7 @@ Laser[] lasers;
 int totalLasers;
 int LEAP = 0;
 int MOUSE = 1;
-int mode = LEAP;
+int mode = MOUSE;
 int backgroundImageX = 5000;
 int backgroundImageY = 3648;
 float backgroundZ = 4676; // but negative
@@ -24,7 +24,7 @@ void setup() {
   leap = new LeapMotion(this);
   textSize(36);
   cameraPos = new PVector(width/2, height/2);
-  totalAsteroids = 20;
+  totalAsteroids = 60;
   asteroids = new Asteroid[totalAsteroids];
   for(int i = 0; i < totalAsteroids; i++) {
     asteroids[i] = new Asteroid();
@@ -92,8 +92,12 @@ void draw() {
 void leapLogic() {
   for(Hand hand : leap.getHands()) {
     if(hand.isRight()) {
-      PVector handPosition = hand.getPosition();
-      cameraPos = new PVector(handPosition.x, handPosition.y);
+      PVector handPosition = hand.getStabilizedPosition();
+      cameraPos = new PVector(2*handPosition.x, 2*handPosition.y);
+      
+      ship.yaw = -hand.getYaw();
+      ship.pitch = -hand.getPitch();
+      ship.roll = hand.getRoll();
       for(Finger finger : hand.getOutstretchedFingers()) {
         // Thumb
         if(finger.getType() == 0) {
@@ -128,7 +132,7 @@ void leapLogic() {
 
 void moveCamera() {
   if(mode == MOUSE) {
-    cameraPos = new PVector(mouseX, mouseY);
+    cameraPos = new PVector(2*mouseX, 2*mouseY);
   }
   camera(cameraPos.x, cameraPos.y, (height/2) / tan(PI/6), cameraPos.x, cameraPos.y, 0, 0, 1, 0);
 }
