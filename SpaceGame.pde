@@ -52,13 +52,13 @@ void draw() {
     return;
   }
   lights();
-  
+
   // Leap
   if(mode == LEAP) leapLogic();
-  
+
   // Camera
   moveCamera();
-  
+
   // Asteroids
   for(int i = 0; i < totalAsteroids; i++) {
     asteroids[i].update();
@@ -67,11 +67,11 @@ void draw() {
       asteroids[i] = new Asteroid();
     }
   }
-  
+
   // Ship
   ship.update();
   ship.display();
-  
+
   // Lasers
   int aliveLasers = 0;
   Laser[] newLasers = new Laser[100];
@@ -99,11 +99,11 @@ void leapLogic() {
         if(finger.getType() == 0) {
           ship.shooting = false;
         }
-        // Index 
+        // Index
         else if(finger.getType() == 1) {
           PVector fingerDirection = finger.getDirection();
           ship.facingDirection = new PVector(fingerDirection.x, fingerDirection.y, fingerDirection.z);
-          
+
           pushMatrix();
           PVector add = fingerDirection.copy();
           add.setMag(500);
@@ -114,7 +114,7 @@ void leapLogic() {
           noFill();
           sphere(20);
           popMatrix();
-          
+
           pushMatrix();
           fill(255);
           translate(width/2, height/2, -100);

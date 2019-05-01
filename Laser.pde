@@ -10,7 +10,7 @@ class Laser {
     velocity = new PVector(direction.x, direction.y, direction.z);
     speed = 40;
     velocity.setMag(speed);
-    size = 50;
+    size = 10;
     alive = true;
   }
   
@@ -25,7 +25,7 @@ class Laser {
     translate(position.x, position.y, position.z);
     fill(255, 0, 0);
     noStroke();
-    box(size);
+    sphere(size);
     popMatrix();
   }
 }
