@@ -26,7 +26,7 @@ class Ship {
     position.mult(1.1);
     position.add(new PVector(width, height));
     //println("position: " + position.x + " " + position.y);
-    if(shooting && totalLasers < lasers.length) {
+    if(shooting && totalLasers < lasers.length && frameCount%15==1) {
       lasers[totalLasers] = new Laser(position, facingDirection);
       totalLasers++;
     }
