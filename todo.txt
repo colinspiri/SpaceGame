@@ -8,7 +8,6 @@ Later:
 -make facingDirection be a vector from ship.position to the nose of the ship so yaw, pitch, roll changes it, not the finger
 -fix Pause menu
 -make asteroids explode because of lasers
--laser sound effects
 -make ship hitbox a sphere around it
 
 QUESTIONS/BUGS/ISSUES:
