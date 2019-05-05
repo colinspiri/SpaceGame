@@ -1,6 +1,9 @@
 import de.voidplus.leapmotion.*;
 LeapMotion leap;
 
+import processing.sound.*;
+SoundFile laserBlast;
+
 PVector cameraPos;
 Asteroid[] asteroids;
 int totalAsteroids;
@@ -17,6 +20,7 @@ float imgScale = 0.00062*backgroundZ;
 PImage backgroundimg;
 
 void setup() {
+  laserBlast = new SoundFile(this, "laserBlast.mp3");
   imageMode(CENTER);
   backgroundimg = loadImage("Images/realimage.jpg");
   //image dimensions: 4992x3648
