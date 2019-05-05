@@ -5,7 +5,6 @@ Current Commit:
 -give asteroids random velocity directions (but still with positive z)
 
 Later:
--make laser timer so you can't machine-gun fire
 -make facingDirection be a vector from ship.position to the nose of the ship so yaw, pitch, roll changes it, not the finger
 -fix Pause menu
 -make asteroids explode because of lasers
