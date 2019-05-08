@@ -9,7 +9,7 @@ Laser[] lasers;
 int totalLasers;
 int LEAP = 0;
 int MOUSE = 1;
-int mode = MOUSE;
+int mode = LEAP;
 int backgroundImageX = 5000;
 int backgroundImageY = 3648;
 float backgroundZ = 4676; // but negative
@@ -37,10 +37,6 @@ void setup() {
 void draw() {
   // Pause Menu
   background(0);
-  pushMatrix();
-  translate(0, 0, -backgroundZ);
-  image(backgroundimg, width/2, height/2, backgroundImageX*imgScale, backgroundImageY*imgScale);
-  popMatrix();
   if(leap.getHands().size() == 0 && mode == LEAP) {
     pushMatrix();
     translate(width/2, height/2, 0);
@@ -51,6 +47,11 @@ void draw() {
     popMatrix();
     return;
   }
+  // Draw image background
+  pushMatrix();
+  translate(0, 0, -backgroundZ);
+  image(backgroundimg, width/2, height/2, backgroundImageX*imgScale, backgroundImageY*imgScale);
+  popMatrix();
   lights();
 
   // Leap
@@ -58,6 +59,9 @@ void draw() {
 
   // Camera
   moveCamera();
+  
+  // Collision Detection 
+  collisionDetection();
 
   // Asteroids
   for(int i = 0; i < totalAsteroids; i++) {

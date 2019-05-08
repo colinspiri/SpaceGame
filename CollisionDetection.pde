@@ -1,6 +1,6 @@
 
 void collisionDetection() {
-  //asteroidLaserCollisions();
+  asteroidLaserCollisions();
   asteroidShipCollisions();
 }
 
@@ -8,14 +8,13 @@ void asteroidShipCollisions() {
   for(int a = 0; a < totalAsteroids; a++) {
     Asteroid asteroid = asteroids[a];
     // AABB METHOD
-    if(asteroid.position.z + asteroid.size >= ship.position.z - ship.size) {
-      
+    if(asteroid.position.z + asteroid.size >= ship.position.z - 2*ship.size) {
       if(asteroid.position.x + asteroid.size > ship.position.x - ship.size 
       && asteroid.position.x - asteroid.size < ship.position.x + ship.size
       && asteroid.position.y + asteroid.size > ship.position.y - ship.size 
       && asteroid.position.y - asteroid.size < ship.position.y + ship.size) {
         asteroid.alive = false;
-        println("COLLISION WITH SHIP");
+        println("ASTEROID COLLISION WITH SHIP " + a);
       }
     }
   }
@@ -32,7 +31,7 @@ void asteroidLaserCollisions() {
       float zDiff = asteroid.position.z - laser.position.z;
       float distance = (float)Math.sqrt(xDiff*xDiff + yDiff*yDiff + zDiff*zDiff);
       float sumOfRadii = asteroid.size + laser.size;
-      println(distance + " " + sumOfRadii);
+      //println(distance + " " + sumOfRadii);
       if(distance < sumOfRadii) {
         laser.alive = false;
         asteroid.alive = false;
