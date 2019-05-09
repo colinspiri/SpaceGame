@@ -10,7 +10,7 @@ class Asteroid {
     float x = random(-2*width, 2*width);
     float y = random(-2*height, 2*height);
     float z = -5000 + random(0, 300);
-    position = new PVector(x, y, z);
+    position = new PVector(width/2 + x, height/2 + y, z);
     int xSpeedMax = 4;
     float xSpeed = random(-xSpeedMax, xSpeedMax);
     int ySpeedMax = 4;
@@ -31,7 +31,7 @@ class Asteroid {
 
   void display() {
     pushMatrix();
-    translate(width/2 + position.x, height/2 + position.y, position.z);
+    translate(position.x, position.y, position.z);
     noStroke();
     noFill();
     shape(shape);
