@@ -5,7 +5,7 @@ class Asteroid {
   int size;
   PImage surfaceImg;
   PShape shape;
- 
+
   Asteroid() {
     float x = random(-2*width, 2*width);
     float y = random(-2*height, 2*height);
@@ -23,12 +23,12 @@ class Asteroid {
     shape = createShape(SPHERE, size);
     shape.setTexture(surfaceImg);
   }
-  
+
   void update() {
     position.add(velocity);
     if(position.z >= 400) alive = false;
   }
-  
+
   void display() {
     pushMatrix();
     translate(width/2 + position.x, height/2 + position.y, position.z);
