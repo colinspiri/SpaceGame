@@ -14,15 +14,16 @@ Laser[] lasers;
 int totalLasers;
 int LEAP = 0;
 int MOUSE = 1;
-int mode = MOUSE;
 int backgroundImageX = 5000;
 int backgroundImageY = 3648;
 float backgroundZ = 4676; // but negative
 float imgScale = 0.00062*backgroundZ;
 PImage backgroundimg;
 
+int mode = MOUSE;
+
 void setup() {
-  laserBlast = new SoundFile(this, "laserBlast.mp3");
+  laserBlast = new SoundFile(this, "Sounds/laserBlast.mp3");
   imageMode(CENTER);
   backgroundimg = loadImage("Images/realimage.jpg");
   //image dimensions: 4992x3648
@@ -48,9 +49,22 @@ void setup() {
 }
 
 void draw() {
-  // Pause Menu
   background(0);
+  // Game Over Screen
+  if(ship.health <= 0) {
+    camera(width/2, height/2, (height/2) / tan(PI/6), width/2, height/2, 0, 0, 1, 0);
+    pushMatrix();
+    translate(width/2, height/2, 0);
+    textSize(50);
+    textAlign(CENTER, CENTER);
+    fill(255);
+    text("GAME OVER", 0, 0);
+    popMatrix();
+    return;
+  }
+  // Pause Menu
   if(leap.getHands().size() == 0 && mode == LEAP) {
+    camera(width/2, height/2, (height/2) / tan(PI/6), width/2, height/2, 0, 0, 1, 0);
     pushMatrix();
     translate(width/2, height/2, 0);
     textSize(50);
@@ -67,7 +81,7 @@ void draw() {
   popMatrix();
   lights();
 
-  // Leap
+  // Leap logic
   if(mode == LEAP) leapLogic();
 
   // Camera
@@ -113,6 +127,20 @@ for(int i = 0; i < totalRings; i++) {
     lasers[i].update();
     lasers[i].display();
   }
+  
+  // Foreground
+  displayForeground();
+  
+}
+
+void displayForeground() {
+  pushMatrix();
+  translate(cameraPos.x, cameraPos.y, ship.position.z);
+  textSize(20);
+  fill(ship.shipColor);
+  textAlign(LEFT, CENTER);
+  text("Health: " + Math.round(ship.health), -0.3*width, -0.3*height);
+  popMatrix();
 }
 
 void leapLogic() {
@@ -143,12 +171,6 @@ void leapLogic() {
           stroke(0, 255, 0);
           noFill();
           sphere(20);
-          popMatrix();
-
-          pushMatrix();
-          fill(255);
-          translate(width/2, height/2, -100);
-          text("X: " + nf(fingerDirection.x, 0, 1) + " Y: " + nf(fingerDirection.y, 0, 1) + " Z: " + nf(fingerDirection.z, 0, 1), 100, 100);
           popMatrix();
         }
       }
