@@ -7,12 +7,14 @@ SoundFile laserBlast;
 PVector cameraPos;
 Asteroid[] asteroids;
 int totalAsteroids;
+Ring[] rings;
+int totalRings;
 Ship ship;
 Laser[] lasers;
 int totalLasers;
 int LEAP = 0;
 int MOUSE = 1;
-int mode = LEAP;
+int mode = MOUSE;
 int backgroundImageX = 5000;
 int backgroundImageY = 3648;
 float backgroundZ = 4676; // but negative
@@ -33,6 +35,13 @@ void setup() {
   for(int i = 0; i < totalAsteroids; i++) {
     asteroids[i] = new Asteroid();
   }
+  
+  totalRings = 10;
+  rings = new Ring[totalRings];
+  for(int i = 0; i < totalRings; i++) {
+    rings[i] = new Ring();
+  }
+  
   ship = new Ship();
   lasers = new Laser[500];
   totalLasers = 0;
@@ -73,6 +82,15 @@ void draw() {
     asteroids[i].display();
     if(!asteroids[i].alive) {
       asteroids[i] = new Asteroid();
+    }
+  }
+
+//Rings
+for(int i = 0; i < totalRings; i++) {
+    rings[i].update();
+    rings[i].display();
+    if(!rings[i].alive) {
+      rings[i] = new Ring();
     }
   }
 
