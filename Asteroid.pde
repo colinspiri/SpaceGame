@@ -3,6 +3,8 @@ class Asteroid {
   PVector velocity;
   boolean alive;
   int size;
+  PImage surfaceImg;
+  PShape shape;
  
   Asteroid() {
     float x = random(-2*width, 2*width);
@@ -17,6 +19,9 @@ class Asteroid {
     velocity = new PVector(xSpeed, ySpeed, zSpeed);
     alive = true;
     size = Math.round(random(50, 150));
+    surfaceImg = loadImage("images/asteroid.jpg");
+    shape = createShape(SPHERE, size);
+    shape.setTexture(surfaceImg);
   }
   
   void update() {
@@ -27,9 +32,9 @@ class Asteroid {
   void display() {
     pushMatrix();
     translate(width/2 + position.x, height/2 + position.y, position.z);
-    fill(200);
     noStroke();
-    sphere(size);
+    noFill();
+    shape(shape);
     popMatrix();
   }
 }
