@@ -1,16 +1,15 @@
 TODO:
 
 Current Commit:
--fix collision detection
-
-Commit Message:
-Made pause menu black background
+-make ship health deplete when hit by asteroid
 
 Later:
+-make asteroids explode because of lasers
+-make lasers charge up when you don't fire
+-make lasers affect health of asteroids instead of making them die immediately
 -make facingDirection be a vector from ship.position to the nose of the ship so yaw, pitch, roll changes it, not the finger
 -fix Pause menu
--make asteroids explode because of lasers
--make ship hitbox a sphere around it
+-make rings to fly through
 
 QUESTIONS/BUGS/ISSUES:
 -fill() doesn't work with PShape ?

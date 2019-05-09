@@ -14,7 +14,8 @@ void asteroidShipCollisions() {
       && asteroid.position.y + asteroid.size > ship.position.y - ship.size 
       && asteroid.position.y - asteroid.size < ship.position.y + ship.size) {
         asteroid.alive = false;
-        println("ASTEROID COLLISION WITH SHIP " + a);
+        if(ship.invulnerable) ship.setInvulnerable();
+        else ship.takeDamage(0.15*asteroid.size);
       }
     }
   }
