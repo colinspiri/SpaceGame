@@ -10,8 +10,10 @@ Later:
 -make facingDirection be a vector from ship.position to the nose of the ship so yaw, pitch, roll changes it, not the finger
 -fix Pause menu
 -make rings to fly through
+-try 3d navigation where asteroids are relatively stationary but you can look around yourself - like a starfox dogfight - separate branch
+	-other ship wants to shoot you down
 
 QUESTIONS/BUGS/ISSUES:
 -fill() doesn't work with PShape ?
--sphere-sphere collision detection is broken (asteroids-lasers)
 -everything lags a lot (maybe because of background - try background(0) and just small static star objects in background)
+-asteroids are colored

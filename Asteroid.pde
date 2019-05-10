@@ -23,7 +23,13 @@ class Asteroid {
     shape = createShape(SPHERE, size);
     shape.setTexture(surfaceImg);
   }
-
+  
+  void setSize(int newSize) {
+    size = newSize;
+    shape = createShape(SPHERE, size);
+    shape.setTexture(surfaceImg);
+  }
+  
   void update() {
     position.add(velocity);
     if(position.z >= 400) alive = false;
@@ -33,7 +39,7 @@ class Asteroid {
     pushMatrix();
     translate(position.x, position.y, position.z);
     noStroke();
-    noFill();
+    fill(200);
     shape(shape);
     popMatrix();
   }
