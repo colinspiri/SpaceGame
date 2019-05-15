@@ -45,5 +45,7 @@ void asteroidLaserCollisions() {
         println("COLLISION " + a + " " + l);
       }
     }
+    noStroke();
+    fill(200);
   }
 }
