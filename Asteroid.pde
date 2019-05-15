@@ -26,9 +26,9 @@ class Asteroid {
     surfaceImg = loadImage("images/asteroid.jpg");
     shape = createShape(SPHERE, size);
     shape.setTexture(surfaceImg);
-    yaw = 10;
-    pitch = 10;
-    roll = 10;
+    yaw = random(-10,10);
+    pitch = random(-10,10);
+    roll = random(-10,10);
     float spinFactor = .01;
     asteroidSpin = new PVector(random(-spinFactor, spinFactor), random(-spinFactor, spinFactor), random(-spinFactor, spinFactor));
     fill(200);
