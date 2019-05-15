@@ -15,7 +15,8 @@ class Asteroid {
     float xSpeed = random(-xSpeedMax, xSpeedMax);
     int ySpeedMax = 4;
     float ySpeed = random(-ySpeedMax, ySpeedMax);
-    float zSpeed = random(5, 30);
+    float zSpeedDiff = 5;
+    float zSpeed = random(gameSpeed - zSpeedDiff, gameSpeed + zSpeedDiff);
     velocity = new PVector(xSpeed, ySpeed, zSpeed);
     alive = true;
     size = Math.round(random(50, 150));

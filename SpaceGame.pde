@@ -20,7 +20,9 @@ float backgroundZ = 4676; // but negative
 float imgScale = 0.00062*backgroundZ;
 PImage backgroundimg;
 
-int mode = LEAP;
+int mode = MOUSE;
+
+float gameSpeed = 3;
 
 void setup() {
   laserBlast = new SoundFile(this, "Sounds/laserBlast.mp3");
@@ -131,6 +133,9 @@ for(int i = 0; i < totalRings; i++) {
   // Foreground
   displayForeground();
 
+  // Game gets faster
+  gameSpeed += 0.01;
+  println(gameSpeed);
 }
 
 void displayForeground() {
