@@ -5,12 +5,8 @@ class Asteroid {
   int size;
   PImage surfaceImg;
   PShape shape;
-  float yaw, pitch, roll;
-  PVector asteroidSpin;
 
   Asteroid() {
-    noStroke();
-    fill(200);
     float x = random(-2*width, 2*width);
     float y = random(-2*height, 2*height);
     float z = -5000 + random(0, 300);
@@ -26,36 +22,18 @@ class Asteroid {
     surfaceImg = loadImage("images/asteroid.jpg");
     shape = createShape(SPHERE, size);
     shape.setTexture(surfaceImg);
-    yaw = 10;
-    pitch = 10;
-    roll = 10;
-    float spinFactor = .01;
-    asteroidSpin = new PVector(random(-spinFactor, spinFactor), random(-spinFactor, spinFactor), random(-spinFactor, spinFactor));
-    fill(200);
   }
-  
-  void setSize(int newSize) {
-    size = newSize;
-    shape = createShape(SPHERE, size);
-    shape.setTexture(surfaceImg);
-  }
-  
+
   void update() {
     position.add(velocity);
     if(position.z >= 400) alive = false;
-    pitch +=asteroidSpin.x;
-    yaw += asteroidSpin.y;
-    roll += asteroidSpin.z;
   }
 
   void display() {
     pushMatrix();
     translate(position.x, position.y, position.z);
-    rotateX(pitch);
-    rotateY(yaw);
-    rotateZ(roll);
     noStroke();
-    fill(200);
+    noFill();
     shape(shape);
     popMatrix();
   }

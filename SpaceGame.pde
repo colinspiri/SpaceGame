@@ -20,7 +20,7 @@ float backgroundZ = 4676; // but negative
 float imgScale = 0.00062*backgroundZ;
 PImage backgroundimg;
 
-int mode = LEAP;
+int mode = MOUSE;
 
 void setup() {
   laserBlast = new SoundFile(this, "Sounds/laserBlast.mp3");

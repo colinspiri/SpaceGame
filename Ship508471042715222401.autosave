@@ -13,7 +13,6 @@ class Ship {
   boolean flash;
 
   Ship() {
-    stroke(50);
     float x = width/2;
     float y = height/2;
     float z = 200;
