@@ -4,6 +4,15 @@ LeapMotion leap;
 import processing.sound.*;
 SoundFile laserBlast;
 
+import javax.swing.*;
+String currentPlayer = JOptionPane.showInputDialog("Input Player Name"); 
+int highscore;
+String highscoreName;
+String highscoreFile = "data/highscore.txt";
+String highscoreNameFile = "data/highscorename.txt";
+PrintWriter output;
+BufferedReader reader;
+
 PVector cameraPos;
 Asteroid[] asteroids;
 int totalAsteroids;
@@ -22,27 +31,33 @@ PImage backgroundimg;
 
 int mode = MOUSE;
 
+float gameSpeed = 10;
+int score = 0;
+
 void setup() {
   laserBlast = new SoundFile(this, "Sounds/laserBlast.mp3");
   imageMode(CENTER);
+  textSize(36);
   backgroundimg = loadImage("Images/realimage.jpg");
   //image dimensions: 4992x3648
   size(1000, 600, P3D);
+  
+  importHighscore();
+  importHighscoreName();
+  
   leap = new LeapMotion(this);
-  textSize(36);
   cameraPos = new PVector(width/2, height/2);
+  
   totalAsteroids = 60;
   asteroids = new Asteroid[totalAsteroids];
   for(int i = 0; i < totalAsteroids; i++) {
     asteroids[i] = new Asteroid();
   }
-  
   totalRings = 10;
   rings = new Ring[totalRings];
   for(int i = 0; i < totalRings; i++) {
     rings[i] = new Ring();
   }
-  
   ship = new Ship();
   lasers = new Laser[500];
   totalLasers = 0;
@@ -55,10 +70,16 @@ void draw() {
     camera(width/2, height/2, (height/2) / tan(PI/6), width/2, height/2, 0, 0, 1, 0);
     pushMatrix();
     translate(width/2, height/2, 0);
-    textSize(50);
     textAlign(CENTER, CENTER);
     fill(255);
-    text("GAME OVER", 0, 0);
+    int yDiff = 60;
+    int startY = -2*yDiff;
+    textSize(50);
+    text("GAME OVER", 0, startY);
+    textSize(40);
+    text("Your Score: " + score, 0, startY + yDiff);
+    text("High Score: " + highscore, 0, startY + yDiff*3);
+    text("High Scorer: " + (score == highscore ? "YOU!" : highscoreName), 0, startY + yDiff*4);
     popMatrix();
     return;
   }
@@ -70,7 +91,14 @@ void draw() {
     textSize(50);
     textAlign(CENTER, CENTER);
     fill(255);
-    text("GAME PAUSED", 0, 0);
+    int yDiff = 60;
+    int startY = -2*yDiff;
+    textSize(50);
+    text("PAUSED", 0, startY);
+    textSize(40);
+    text("Your Score: " + score, 0, startY + yDiff);
+    text("High Score: " + highscore, 0, startY + yDiff*3);
+    text("High Scorer: " + highscoreName, 0, startY + yDiff*4);
     popMatrix();
     return;
   }
@@ -86,8 +114,8 @@ void draw() {
 
   // Camera
   moveCamera();
-  
-  // Collision Detection 
+
+  // Collision Detection
   collisionDetection();
 
   // Asteroids
@@ -99,8 +127,8 @@ void draw() {
     }
   }
 
-//Rings
-for(int i = 0; i < totalRings; i++) {
+  //Rings
+  for(int i = 0; i < totalRings; i++) {
     rings[i].update();
     rings[i].display();
     if(!rings[i].alive) {
@@ -127,19 +155,27 @@ for(int i = 0; i < totalRings; i++) {
     lasers[i].update();
     lasers[i].display();
   }
-  
+
   // Foreground
   displayForeground();
-  
+
+  // Game gets faster
+  gameSpeed += 0.005;
+  println("game speed: " + round(gameSpeed));
 }
 
 void displayForeground() {
   pushMatrix();
   translate(cameraPos.x, cameraPos.y, ship.position.z);
-  textSize(20);
-  fill(ship.shipColor);
+  textSize(30);
+  fill(255);
   textAlign(LEFT, CENTER);
-  text("Health: " + Math.round(ship.health), -0.3*width, -0.3*height);
+  float startX = -0.4*width;
+  float startY = -0.4*height;
+  int yDiff = 40;
+  text("SCORE: " + score, startX, startY);
+  fill(ship.shipColor);
+  text("HEALTH: " + Math.round(ship.health), startX, startY + yDiff);
   popMatrix();
 }
 
@@ -148,7 +184,7 @@ void leapLogic() {
     if(hand.isRight()) {
       PVector handPosition = hand.getStabilizedPosition();
       cameraPos = new PVector(2*handPosition.x, 2*handPosition.y);
-      
+
       ship.yaw = -hand.getYaw();
       ship.pitch = -hand.getPitch();
       ship.roll = hand.getRoll();

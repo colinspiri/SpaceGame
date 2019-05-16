@@ -1,17 +1,19 @@
 TODO:
 
 Current Commit:
--make ship health deplete when hit by asteroid
+-make score system - score goes up when you shoot asteroids or fly through rings
 
 Later:
--make asteroids explode because of lasers
 -make lasers charge up when you don't fire
--make lasers affect health of asteroids instead of making them die immediately
 -make facingDirection be a vector from ship.position to the nose of the ship so yaw, pitch, roll changes it, not the finger
--fix Pause menu
--make rings to fly through
+-make ship able to speed up or slow down slightly
+-make health bar
+-make asteroids a lighter color
+
+Ambitious:
+-try 3d navigation where asteroids are relatively stationary but you can look around yourself - like a starfox dogfight - separate branch
+	-other ship wants to shoot you down
 
 QUESTIONS/BUGS/ISSUES:
 -fill() doesn't work with PShape ?
--sphere-sphere collision detection is broken (asteroids-lasers)
 -everything lags a lot (maybe because of background - try background(0) and just small static star objects in background)
