@@ -1,7 +1,8 @@
 
 void collisionDetection() {
   asteroidLaserCollisions();
-  asteroidShipCollisions();
+  shipRingCollisions();
+  asteroidShipCollisions();  
 }
 
 void asteroidShipCollisions() {
@@ -37,6 +38,24 @@ void asteroidLaserCollisions() {
         laser.alive = false;
         asteroid.alive = false;
         println("COLLISION " + a + " " + l);
+      }
+    }
+  }
+}
+
+void shipRingCollisions() {
+  for(int a = 0; a < totalRings; a++) {
+    Ring ring = rings[a];
+    println(ship.position.x);
+    println(ring.position.x);
+    if(ring.position.z >= ship.position.z + 200) {
+      if(ring.position.x + ring.size > ship.position.x - ship.size
+      && ring.position.x - ring.size < ship.position.x  - ship.size
+      && ring.position.y + ring.size > ship.position.y - ship.size 
+      && ring.position.y - ring.size < ship.position.y - ship.size) {
+        ring.alive = false;
+        ship.addHealth(0.15*ring.size);
+        println("COLLISION with ring");
       }
     }
   }

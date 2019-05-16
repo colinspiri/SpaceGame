@@ -5,14 +5,14 @@ class Ring {
   int size;
  
   Ring() {
-    float xDiff = random(-width/2, width/2);
-    float yDiff = random(-height/2, height/2);
+    float xDiff = random(-width, width);
+    float yDiff = random(-height, height);
     float z = -5000 + random(0, 300);
-    position = new PVector(width/2 + xDiff, height/2 + yDiff, z);
+    position = new PVector(width + xDiff, height + yDiff, z);
     int xSpeedMax = 4;
     float xSpeed = random(-xSpeedMax, xSpeedMax);
-    //int ySpeedMax = 4;
-    //float ySpeed = random(-ySpeedMax, ySpeedMax);
+    int ySpeedMax = 4;
+    float ySpeed = random(-ySpeedMax, ySpeedMax);
     float zSpeed = random(5, 30);
     velocity = new PVector(0, 0, zSpeed);
     alive = true;
@@ -21,16 +21,18 @@ class Ring {
   
   void update() {
     position.add(velocity);
-    if(position.z >= 400) alive = false;
+   if(position.z >= 400) alive = false;
   }
   
   void display() {
     pushMatrix();
-    translate(position.x, position.y, position.z);
+    translate(0,0, position.z);
     noFill();
-    stroke(225, 255, 0);
+    stroke(255, 255, 0);
     strokeWeight(3);
+    ellipseMode(RADIUS);
     ellipse(position.x, position.y, size, size);
+
     popMatrix();
   }
 }

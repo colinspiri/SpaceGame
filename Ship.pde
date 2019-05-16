@@ -38,6 +38,13 @@ class Ship {
     setInvulnerable();
     println("Ship takes " + Math.round(damageAmount) + " damage and has " + health + " health remaining.");
   }
+  
+  void addHealth(float healthAmount){
+    health+=healthAmount;
+    if(health > 100) health = 100;
+    println("Ship gains " + Math.round(healthAmount));
+  }
+  
   void setInvulnerable() {
     invulnerable = true;
     flash = true;
