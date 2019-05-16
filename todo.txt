@@ -1,13 +1,14 @@
 TODO:
 
 Current Commit:
--make game speed up
+-make score system - score goes up when you shoot asteroids or fly through rings
 
 Later:
--make score system - score goes up when you shoot asteroids or fly through rings
 -make lasers charge up when you don't fire
 -make facingDirection be a vector from ship.position to the nose of the ship so yaw, pitch, roll changes it, not the finger
--fix Pause menu
+-make ship able to speed up or slow down slightly
+-make health bar
+-make asteroids a lighter color
 
 Ambitious:
 -try 3d navigation where asteroids are relatively stationary but you can look around yourself - like a starfox dogfight - separate branch

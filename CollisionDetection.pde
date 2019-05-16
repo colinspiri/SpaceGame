@@ -32,9 +32,9 @@ void asteroidLaserCollisions() {
       float zDiff = asteroid.position.z - laser.position.z;
       float distance = (float)Math.sqrt(xDiff*xDiff + yDiff*yDiff + zDiff*zDiff);
       float sumOfRadii = asteroid.size + laser.size;
-      //println(distance + " " + sumOfRadii);
       if(distance < sumOfRadii) {
         laser.alive = false;
+        score += round((1500/asteroid.size)/10)*10;
         int reduction = 50;
         if(asteroid.size <= 1.4*reduction) {
           asteroid.alive = false;

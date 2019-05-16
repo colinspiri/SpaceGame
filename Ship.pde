@@ -35,7 +35,11 @@ class Ship {
 
   void takeDamage(float damageAmount) {
     health -= damageAmount;
-    if(health < 0) health = 0;
+    if(health <= 0) {
+      health = 0;
+      updateHighscore();
+      updateHighscoreName();
+    }
     setInvulnerable();
     println("Ship takes " + Math.round(damageAmount) + " damage and has " + health + " health remaining.");
   }
