@@ -1,12 +1,15 @@
+<<<<<<< HEAD
 PImage explosionImg;
 int explosionFrames;
 
+=======
+>>>>>>> b8255e4c3c45b453d495320d3e2ef848cc0a70f9
 void collisionDetection() {
   explosionImg = loadImage("images/explosion.png");
   explosionFrames = 5000;
   asteroidLaserCollisions();
   shipRingCollisions();
-  asteroidShipCollisions();  
+  asteroidShipCollisions();
 }
 
 void asteroidShipCollisions() {
@@ -14,13 +17,16 @@ void asteroidShipCollisions() {
     Asteroid asteroid = asteroids[a];
     // AABB METHOD
     if(asteroid.position.z + asteroid.size >= ship.position.z - 2*ship.size) {
-      if(asteroid.position.x + asteroid.size > ship.position.x - ship.size 
+      if(asteroid.position.x + asteroid.size > ship.position.x - ship.size
       && asteroid.position.x - asteroid.size < ship.position.x + ship.size
-      && asteroid.position.y + asteroid.size > ship.position.y - ship.size 
+      && asteroid.position.y + asteroid.size > ship.position.y - ship.size
       && asteroid.position.y - asteroid.size < ship.position.y + ship.size) {
         asteroid.alive = false;
         if(ship.invulnerable) ship.setInvulnerable();
-        else ship.takeDamage(0.15*asteroid.size);
+        else {
+          ship.takeDamage(0.15*asteroid.size);
+          bar.takeHealth(0.15*asteroid.size);
+        }
       }
     }
   }
@@ -66,16 +72,15 @@ void asteroidLaserCollisions() {
 void shipRingCollisions() {
   for(int a = 0; a < totalRings; a++) {
     Ring ring = rings[a];
-    println(ship.position.x);
-    println(ring.position.x);
     if(ring.position.z >= ship.position.z + 200) {
       if(ring.position.x + ring.size > ship.position.x - ship.size
       && ring.position.x - ring.size < ship.position.x  - ship.size
-      && ring.position.y + ring.size > ship.position.y - ship.size 
+      && ring.position.y + ring.size > ship.position.y - ship.size
       && ring.position.y - ring.size < ship.position.y - ship.size) {
         ring.alive = false;
         ship.addHealth(0.15*ring.size);
-        println("COLLISION with ring");
+        bar.addHealth(0.15*ring.size);
+        score += 20;
       }
     }
   }

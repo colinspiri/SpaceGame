@@ -10,14 +10,10 @@ class Ring {
     float z = -5000 + random(0, 300);
     position = new PVector(width + xDiff, height + yDiff, z);
     int xSpeedMax = 4;
-    float xSpeed = random(-xSpeedMax, xSpeedMax);
-    //int ySpeedMax = 4;
-    //float ySpeed = random(-ySpeedMax, ySpeedMax);
-    float zSpeedDiff = 2;
-    float zSpeed = random(gameSpeed - zSpeedDiff, gameSpeed + zSpeedDiff);
+    float zSpeed = random(gameSpeed + 10, gameSpeed + 30);
     velocity = new PVector(0, 0, zSpeed);
     alive = true;
-    size = Math.round(random(50, 150));
+    size = Math.round(random(20, 70));
   }
 
   void update() {
@@ -33,7 +29,6 @@ class Ring {
     strokeWeight(3);
     ellipseMode(RADIUS);
     ellipse(position.x, position.y, size, size);
-
     popMatrix();
   }
 }
