@@ -1,11 +1,11 @@
 TODO:
 
 Current Commit:
--make score system - score goes up when you shoot asteroids or fly through rings
+-make facingDirection be a vector from ship.position to the nose of the ship so yaw, pitch, roll changes it, not the finger
+-scale the leap controls
 
 Later:
 -make lasers charge up when you don't fire
--make facingDirection be a vector from ship.position to the nose of the ship so yaw, pitch, roll changes it, not the finger
 -make ship able to speed up or slow down slightly
 -make health bar
 -make asteroids a lighter color
@@ -17,3 +17,6 @@ Ambitious:
 QUESTIONS/BUGS/ISSUES:
 -fill() doesn't work with PShape ?
 -everything lags a lot (maybe because of background - try background(0) and just small static star objects in background)
+
+Commit Message:
+-incremented score when hitting rings

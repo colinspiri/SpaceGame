@@ -54,8 +54,6 @@ void asteroidLaserCollisions() {
 void shipRingCollisions() {
   for(int a = 0; a < totalRings; a++) {
     Ring ring = rings[a];
-    println(ship.position.x);
-    println(ring.position.x);
     if(ring.position.z >= ship.position.z + 200) {
       if(ring.position.x + ring.size > ship.position.x - ship.size
       && ring.position.x - ring.size < ship.position.x  - ship.size
@@ -63,6 +61,7 @@ void shipRingCollisions() {
       && ring.position.y - ring.size < ship.position.y - ship.size) {
         ring.alive = false;
         ship.addHealth(0.15*ring.size);
+        score += 20;
         println("COLLISION with ring");
       }
     }

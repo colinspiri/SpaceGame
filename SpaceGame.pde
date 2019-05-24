@@ -29,7 +29,7 @@ float backgroundZ = 4676; // but negative
 float imgScale = 0.00062*backgroundZ;
 PImage backgroundimg;
 
-int mode = MOUSE;
+int mode = LEAP;
 
 float gameSpeed = 10;
 int score = 0;
