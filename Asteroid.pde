@@ -10,7 +10,7 @@ class Asteroid {
 
   Asteroid() {
     noStroke();
-    fill(200);
+    fill(255);
     float x = random(-2*width, 2*width);
     float y = random(-2*height, 2*height);
     float z = -5000 + random(0, 300);
@@ -32,7 +32,7 @@ class Asteroid {
     roll = random(-10,10);
     float spinFactor = .01;
     asteroidSpin = new PVector(random(-spinFactor, spinFactor), random(-spinFactor, spinFactor), random(-spinFactor, spinFactor));
-    fill(200);
+    fill(255);
   }
   
   void setSize(int newSize) {

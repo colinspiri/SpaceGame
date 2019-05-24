@@ -1,4 +1,12 @@
+<<<<<<< HEAD
+PImage explosionImg;
+int explosionFrames;
+
+=======
+>>>>>>> b8255e4c3c45b453d495320d3e2ef848cc0a70f9
 void collisionDetection() {
+  explosionImg = loadImage("images/explosion.png");
+  explosionFrames = 5000;
   asteroidLaserCollisions();
   shipRingCollisions();
   asteroidShipCollisions();
@@ -40,10 +48,18 @@ void asteroidLaserCollisions() {
         score += round((1500/asteroid.size)/10)*10;
         int reduction = 50;
         if(asteroid.size <= 1.4*reduction) {
-          asteroid.alive = false;
+            pushMatrix();
+            translate(0, 0, asteroid.position.z - 700);
+            image(explosionImg, asteroid.position.x, asteroid.position.y);
+            popMatrix();
+        asteroid.alive = false;
         }
         else {
           asteroid.setSize(asteroid.size - reduction);
+          pushMatrix();
+          translate(0, 0, asteroid.position.z - 200);
+          image(explosionImg, asteroid.position.x * 10, asteroid.position.y * 10);
+          popMatrix();
         }
         println("COLLISION " + a + " " + l);
       }
