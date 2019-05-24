@@ -28,6 +28,7 @@ int backgroundImageY = 3648;
 float backgroundZ = 4676; // but negative
 float imgScale = 0.00062*backgroundZ;
 PImage backgroundimg;
+healthBar bar;
 
 int mode = LEAP;
 
@@ -53,7 +54,7 @@ void setup() {
   for(int i = 0; i < totalAsteroids; i++) {
     asteroids[i] = new Asteroid();
   }
-  totalRings = 10;
+  totalRings = 5;
   rings = new Ring[totalRings];
   for(int i = 0; i < totalRings; i++) {
     rings[i] = new Ring();
@@ -61,6 +62,7 @@ void setup() {
   ship = new Ship();
   lasers = new Laser[500];
   totalLasers = 0;
+  bar = new healthBar();
 }
 
 void draw() {
@@ -139,7 +141,7 @@ void draw() {
   // Ship
   ship.update();
   ship.display();
-
+  
   // Lasers
   int aliveLasers = 0;
   Laser[] newLasers = new Laser[100];
@@ -176,6 +178,7 @@ void displayForeground() {
   text("SCORE: " + score, startX, startY);
   fill(ship.shipColor);
   text("HEALTH: " + Math.round(ship.health), startX, startY + yDiff);
+  bar.update();
   popMatrix();
 }
 
