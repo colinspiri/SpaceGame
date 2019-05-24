@@ -62,7 +62,7 @@ class Ship {
     if(shooting && totalLasers < lasers.length && frameCount%15==1) {
       lasers[totalLasers] = new Laser(position, facingDirection);
       totalLasers++;
-      //laserBlast.play();
+      laserBlast.play();
     }
     shooting = false;
     if(mode == LEAP || mousePressed) shooting = true;

@@ -19,6 +19,8 @@
 * SpaceGame.pde contains the main method; Run this file
 * Ensure that the int variable "mode" is initialized to "LEAP" to use the Leap Motion Controller; set it to "MOUSE" to instead use the mouse controls (for developing purposes)
 * The file todo.txt is a record of feature ideas and bugs to fix
+* Make sure that line 65 of Ship.pde is uncommented and says laserBlast.play();
+  * Christian's computer for some reason wouldn't work with the sound files so we had to comment that line out in testing
 
 # The Commits
 * Colin worked on the ship, the asteroids, some collision detection, and the score system
